@@ -90,7 +90,7 @@ public class AddPartScreen implements Initializable {
         } else{
             isOutsourcedPart = true;
             ToggleLabel.setText("Company Name");
-            textPartCompanyName.setPromptText("Company ID");
+            textPartCompanyName.setPromptText("Company Name");
 
         }
 
@@ -117,12 +117,10 @@ public class AddPartScreen implements Initializable {
             String companyName = textPartCompanyName.getText();
             OutsourcedPart oPart = new OutsourcedPart(partId, partName, partPrice, partInv, partMinInv, partManInv, companyName);
             entireInventory.addPart(oPart);
-            System.out.println(entireInventory.getAllParts());
         } else{
             int machineId = new Integer(textPartCompanyName.getText());
             InhousePart IPart = new InhousePart(partId, partName, partPrice, partInv, partMinInv, partManInv, machineId);
             entireInventory.addPart(IPart);
-            System.out.println(entireInventory.getAllParts());
         }
 
         backToMainScreen();

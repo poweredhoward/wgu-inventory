@@ -83,21 +83,23 @@ public class ModifyPartScreen {
         } else{
             isOutsourcedPart = true;
             ToggleLabelModifyPart.setText("Company Name");
-            textPartCompanyName.setPromptText("Company ID");
+            textPartCompanyName.setPromptText("Company Name");
 
         }
 
-        System.out.println(partType);
     }
 
     @FXML
     void clickSaveModifyPart(ActionEvent event) throws IOException {
-        int partId = new Integer(partID.getText());
-        String partName = textPartName.getText();
         int partInv = new Integer(textPartInventory.getText());
-        double partPrice = new Double(textPartPrice.getText());
         int partManInv = new Integer(textMaxPartInventory.getText());
         int partMinInv = new Integer(textMinPartInventory.getText());
+
+        displayedPart.setName( textPartName.getText());
+        displayedPart.setStock(new Integer(textPartInventory.getText()));
+        displayedPart.setPrice( new Double(textPartPrice.getText()));
+        displayedPart.setMax(new Integer(textMaxPartInventory.getText()));
+        displayedPart.setMin( new Integer(textMinPartInventory.getText()));
 
         if(partInv > partManInv || partInv<partMinInv){
             Alert alert = new Alert(Alert.AlertType.ERROR, "Inventory is invalid");
@@ -108,16 +110,14 @@ public class ModifyPartScreen {
 
         if(isOutsourcedPart){
             String companyName = textPartCompanyName.getText();
-            OutsourcedPart oPart = new OutsourcedPart(partId, partName, partPrice, partInv, partMinInv, partManInv, companyName);
-            entireInventory.updatePart(partIndex, oPart);
-//            entireInventory.addPart(oPart);
-//            System.out.println(entireInventory.getAllParts());
+            ((OutsourcedPart) displayedPart).setCompanyName(companyName);
+//            entireInventory.updatePart(partIndex, displayedPart);
+
         } else{
             int machineId = new Integer(textPartCompanyName.getText());
-            InhousePart IPart = new InhousePart(partId, partName, partPrice, partInv, partMinInv, partManInv, machineId);
-            entireInventory.updatePart(partIndex, IPart);
-//            entireInventory.addPart(IPart);
-//            System.out.println(entireInventory.getAllParts());
+            ((InhousePart) displayedPart).setMachineId(machineId);
+//            entireInventory.updatePart(partIndex, displayedPart);
+
         }
 
         backToMainScreen();
@@ -127,7 +127,8 @@ public class ModifyPartScreen {
         this.entireInventory = inventory;
         this.displayedPart = inventory.lookupPart(partId);
         this.partIndex = partIndex;
-        category.selectToggle(RadioInhouse);
+//        category.selectToggle(RadioInhouse);
+
         setPartFields();
     }
 
@@ -140,11 +141,15 @@ public class ModifyPartScreen {
         textMinPartInventory.setText(Integer.toString(this.displayedPart.getMin()));
 
         if (this.displayedPart instanceof OutsourcedPart){
-            this.displayedPart = (OutsourcedPart) this.displayedPart;
+//            this.displayedPart = (OutsourcedPart) this.displayedPart;
             textPartCompanyName.setText(((OutsourcedPart) this.displayedPart).getCompanyName());
+            category.selectToggle(RadioOutsourced);
+            clickInhouseRadio();
         } else {
-            this.displayedPart = (InhousePart) this.displayedPart;
+//            this.displayedPart = (InhousePart) this.displayedPart;
             textPartCompanyName.setText( Integer.toString(((InhousePart) this.displayedPart).getMachineId()) );
+            category.selectToggle(RadioInhouse);
+            clickInhouseRadio();
         }
 
     }

@@ -122,12 +122,16 @@ public class ModifyProductScreen {
 
     @FXML
     void clickSaveNewProduct(ActionEvent event) throws IOException {
-        int productId = new Integer(textModifyProductID.getText());
-        String productName = textModifyProductName.getText();
         int productInv = new Integer(textModifyProductInv.getText());
-        double productPrice = new Double(textModifyProductPrice.getText());
         int productMinInv = new Integer(textModifyProductMin.getText());
         int productMaxInv = new Integer(textModifyProductMax.getText());
+
+        displayedProduct.setName(textModifyProductName.getText());
+        displayedProduct.setStock(new Integer(textModifyProductInv.getText()));
+        displayedProduct.setPrice(new Double(textModifyProductPrice.getText()));
+        displayedProduct.setMin(new Integer(textModifyProductMin.getText()));
+        displayedProduct.setMax(new Integer(textModifyProductMax.getText()));
+
 
         if(productInv > productMaxInv || productInv<productMinInv){
             Alert alert = new Alert(Alert.AlertType.ERROR, "Inventory is invalid");
@@ -135,8 +139,7 @@ public class ModifyProductScreen {
             return;
         }
 
-        Product updatedProduct = new Product(productId, productName, productPrice, productInv, productMinInv, productMaxInv, addedParts);
-        entireInventory.updateProduct(productIndex, updatedProduct);
+//        entireInventory.updateProduct(productIndex, displayedProduct);
 
         backToMainScreen();
     }

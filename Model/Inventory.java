@@ -9,15 +9,6 @@ public class Inventory {
     private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
 
     public Inventory(){
-//        OutsourcedPart p1 = new OutsourcedPart(1, "aaaa", 1.0, 1, 1, 1, "Company A");
-//        OutsourcedPart p2 = new OutsourcedPart(2, "bbbbb", 2.0, 2, 2, 2, "Company B");
-//        InhousePart p3 = new InhousePart(3, "cccccc", 3.0, 3, 3, 3, 3);
-//        InhousePart p4 = new InhousePart(4, "ddddd", 4.0, 4, 4, 4, 4);
-//
-//        this.addPart(p1);
-//        this.addPart(p2);
-//        this.addPart(p3);
-//        this.addPart(p4);
 
     }
 
