@@ -157,7 +157,8 @@ public class AddProductScreen {
 
     @FXML
     void clickSearchParts(ActionEvent event) {
-
+        String partName = textSearchPartsAddProducts.getText();
+        existingPartsTable.setItems(entireInventory.lookupPart(partName));
     }
 
     public void getInventory(Inventory inventory){

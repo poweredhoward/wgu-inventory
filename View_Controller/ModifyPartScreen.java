@@ -91,15 +91,18 @@ public class ModifyPartScreen {
 
     @FXML
     void clickSaveModifyPart(ActionEvent event) throws IOException {
+        int partId = new Integer(partID.getText());
+        String partName = textPartName.getText();
         int partInv = new Integer(textPartInventory.getText());
+        double partPrice = new Double(textPartPrice.getText());
         int partManInv = new Integer(textMaxPartInventory.getText());
         int partMinInv = new Integer(textMinPartInventory.getText());
 
-        displayedPart.setName( textPartName.getText());
-        displayedPart.setStock(new Integer(textPartInventory.getText()));
-        displayedPart.setPrice( new Double(textPartPrice.getText()));
-        displayedPart.setMax(new Integer(textMaxPartInventory.getText()));
-        displayedPart.setMin( new Integer(textMinPartInventory.getText()));
+//        displayedPart.setName( textPartName.getText());
+//        displayedPart.setStock(new Integer(textPartInventory.getText()));
+//        displayedPart.setPrice( new Double(textPartPrice.getText()));
+//        displayedPart.setMax(new Integer(textMaxPartInventory.getText()));
+//        displayedPart.setMin( new Integer(textMinPartInventory.getText()));
 
         if(partInv > partManInv || partInv<partMinInv){
             Alert alert = new Alert(Alert.AlertType.ERROR, "Inventory is invalid");
@@ -110,13 +113,15 @@ public class ModifyPartScreen {
 
         if(isOutsourcedPart){
             String companyName = textPartCompanyName.getText();
-            ((OutsourcedPart) displayedPart).setCompanyName(companyName);
-//            entireInventory.updatePart(partIndex, displayedPart);
+            OutsourcedPart updatedPart = new OutsourcedPart(this.displayedPart.getId(), partName, partPrice, partInv, partMinInv, partManInv, companyName);
+//            ((OutsourcedPart) displayedPart).setCompanyName(companyName);
+            entireInventory.updatePart(partIndex, updatedPart);
 
         } else{
             int machineId = new Integer(textPartCompanyName.getText());
-            ((InhousePart) displayedPart).setMachineId(machineId);
-//            entireInventory.updatePart(partIndex, displayedPart);
+            InhousePart updatedPart = new InhousePart(this.displayedPart.getId(), partName, partPrice, partInv, partMinInv, partManInv, machineId);
+//            ((InhousePart) displayedPart).setMachineId(machineId);
+            entireInventory.updatePart(partIndex, updatedPart);
 
         }
 
